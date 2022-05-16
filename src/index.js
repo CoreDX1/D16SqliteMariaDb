@@ -6,20 +6,34 @@ const http = require('http');
 const server = http.createServer(app);
 
 // Files Static
-app.use(express.static('/public'));
+app.use(express.static('./public'));
 app.use(express.json());
 
 // Socket
 const { Server } = require('socket.io');
 const io = new Server(server);
 
-// Connection
-io.on('connection', (socket) => {
-  socket.emi('message_back', 'Hola Soy el back');
-});
-
 // BaseDate
 const knex = require('./db');
+
+// Connection
+io.on('connection', (socket) => {
+  // socket.emit('message_back', 'Hola Soy el back');
+
+  // socket.on('message_client', (data) => {
+  //   console.log(data);
+  // });
+  // Enviando BaseDate
+  knex
+    .from('message')
+    .select('*')
+    .then((json) => {
+      socket.emit('base_data', json);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+});
 
 app.get('/chat', (req, res) => {
   res.sendFile('public/index.html', { root: '.' });
