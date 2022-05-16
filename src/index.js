@@ -1,9 +1,29 @@
 const express = require('express');
 
+// Server
+const app = express();
+const http = require('http');
+const server = http.createServer(app);
+
+// Files Static
+app.use(express.static('/public'));
+app.use(express.json());
+
+// Socket
+const { Server } = require('socket.io');
+const io = new Server(server);
+
+// Connection
+io.on('connection', (socket) => {
+  socket.emi('message_back', 'Hola Soy el back');
+});
+
+// BaseDate
 const knex = require('./db');
 
-const app = express();
-app.use(express.json());
+app.get('/chat', (req, res) => {
+  res.sendFile('public/index.html', { root: '.' });
+});
 
 app.post('/', (req, res) => {
   console.log(req.body);
@@ -21,6 +41,6 @@ app.post('/', (req, res) => {
     });
 });
 
-app.listen(8080, () => {
+server.listen(8080, () => {
   console.log('Server on');
 });
