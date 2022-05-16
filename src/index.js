@@ -18,11 +18,6 @@ const knex = require('./db');
 
 // Connection
 io.on('connection', (socket) => {
-  // socket.emit('message_back', 'Hola Soy el back');
-
-  // socket.on('message_client', (data) => {
-  //   console.log(data);
-  // });
   // Enviando BaseDate
   knex
     .from('message')
@@ -33,6 +28,27 @@ io.on('connection', (socket) => {
     .catch((err) => {
       console.log(err);
     });
+
+  // Recibir el mensaje y luego enviar
+  socket.on('dataMsn', (data) => {
+    knex('message')
+      .insert(data)
+      .then(() => {
+        console.log('Register ok!!');
+        knex
+          .from('message')
+          .select('*')
+          .then((json) => {
+            io.sockets.emit('base_data', json);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });
 
 app.get('/chat', (req, res) => {
