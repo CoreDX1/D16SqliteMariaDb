@@ -1,0 +1,95 @@
+*{
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+  font-family: 'Noto Sans', sans-serif;
+  color: #131414;
+}
+
+body{
+  height: 100vh;
+  background-color: #8FBCBB;
+}
+
+.container{
+  height: 100vh;
+  display: flex;
+  justify-content: start;
+  align-items: center;
+  flex-direction: column;
+}
+.container .bottom{
+  border: none;
+  width: 60px;
+  height: 30px;
+  color: black;
+  border-radius: 10px;
+  cursor: pointer;
+  background-color: #88C0D0;
+}
+.container .product {
+  width: 800px;
+  background-color: #5E81AC;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  border-radius: 20px;
+  gap: 40px;
+}
+.container .product .title {
+  font-size: 45px;
+}
+
+.container .product table {
+  background-color: #81A1C1;
+}
+
+.container .product table .tr{
+  border: 1px solid #a3bad1;
+  outline: none;
+  padding: 0 50px;
+  text-align: center;
+  font-size: 20px;
+}
+
+.container .product table .imagen{
+  width: 40px;
+}
+
+.container form .name,
+.container form .price,
+.container form .image{
+  background-color: #D8DEE9;
+  height: 33px;
+  border-radius: 10px;
+  border: none;
+  text-align: center;
+  padding: 0 8px;
+}
+
+/* Mensajes */
+
+.container .message {
+  width: 800px;
+  background-color: #5E81AC;
+  padding: 20px;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 50px;
+  border-radius: 20px;
+  gap: 40px;
+}
+.container .message .mensajes{
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  width: 100%;
+  padding: 5px 0;
+  border-radius: 5px;
+  background-color: #D8DEE9;
+  padding: 15px;
+}
+

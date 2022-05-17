@@ -4,6 +4,7 @@
     <title></title>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="./style.css" rel="stylesheet" type="text/css">
   </head>
   <body>
     <div class="container">
@@ -28,15 +29,15 @@
         </table>
     </div>
 
-    <h1>Chat</h1>
-    <form onsubmit="return addMessage()">
-      <input type="text" id="nb" placeholder="Nombre">
-      <input type="text" id="msn" placeholder="Mensaje">
-      <input type="submit" value="Enviar">
-    </form>
-    <div id="caja">
-      
-    </div>
+    <div class="message">
+        <h1 class="">App Chat</h1>
+        <form onsubmit="return addMessage()">
+          <input type="text" class="name" id="nb" placeholder="Nombre">
+          <input type="text" class="name" name="" id="msn" placeholder="Tu mensaje">
+          <input type="submit" class="bottom" value="Enviar">
+        </form>
+        <div class="mensajes" id="caja"></div>
+      </div>
     <script src="/socket.io/socket.io.js"></script>
     <script src="./index.js"></script>
   </body>
