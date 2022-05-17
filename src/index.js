@@ -3,6 +3,7 @@ const express = require('express');
 // Server
 const app = express();
 const http = require('http');
+
 const server = http.createServer(app);
 
 // Files Static
@@ -11,6 +12,7 @@ app.use(express.json());
 
 // Socket
 const { Server } = require('socket.io');
+
 const io = new Server(server);
 
 // BaseDate
