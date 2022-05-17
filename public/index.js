@@ -49,6 +49,7 @@ const addMessage = () => {
     messageUser: document.querySelector('#msn').value,
   };
   socket.emit('dataMsn', dataObj);
+  document.querySelector('#msn').value = '';
   console.log(dataObj);
   return false;
 };
