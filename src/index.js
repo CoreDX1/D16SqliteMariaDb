@@ -14,11 +14,12 @@ const { Server } = require('socket.io');
 const io = new Server(server);
 
 // BaseDate
-const knex = require('./db');
+const knex = require('./sqlite');
+const knexMysql = require('./mariadb');
 
 // Connection
 io.on('connection', (socket) => {
-  // Enviando BaseDate
+  // Enviando BaseDate Sqlite
   knex
     .from('message')
     .select('*')
@@ -29,7 +30,7 @@ io.on('connection', (socket) => {
       console.log(err);
     });
 
-  // Recibir el mensaje y luego enviar
+  // Recibir el mensaje y luego enviar Sqlite
   socket.on('dataMsn', (data) => {
     knex('message')
       .insert(data)
@@ -49,6 +50,37 @@ io.on('connection', (socket) => {
         console.log(err);
       });
   });
+
+  // Enviar los productos
+  knexMysql
+    .from('products')
+    .select('*')
+    .then((json) => {
+      socket.emit('products_data', json);
+    })
+    .catch((err) => {
+      console.log(err);
+    });
+  // Recibiendo los productos y para luego enviarlos
+  socket.on('dataProducts', (data) => {
+    knexMysql('products')
+      .insert(data)
+      .then(() => {
+        console.log('Register ok!!');
+        knexMysql
+          .from('products')
+          .select('*')
+          .then((json) => {
+            io.sockets.emit('products_data', json);
+          })
+          .catch((err) => {
+            console.log(err);
+          });
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  });
 });
 
 app.get('/chat', (req, res) => {
@@ -58,11 +90,12 @@ app.get('/chat', (req, res) => {
 app.post('/', (req, res) => {
   console.log(req.body);
   const objNew = {
-    nameUser: req.body.nameUser,
-    messageUser: req.body.messageUser,
+    name: req.body.name,
+    price: req.body.price,
+    image: req.body.image,
   };
 
-  knex('message').insert(objNew)
+  knexMysql('products').insert(objNew)
     .then(() => {
       console.log('Registro ok');
       res.send({ message: 'Registro ok' });

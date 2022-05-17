@@ -6,6 +6,28 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
   </head>
   <body>
+    <div class="container">
+      <div class="product">
+        <h1 class="title">Agrege su Producto</h1>
+        <form onsubmit="return addProduct()">
+          <input type="text" class="name" id="nm" placeholder="Nombre">
+          <input type="text" class="price" id="pr" placeholder="Precio">
+          <input type="text" class="image" id="im" placeholder="Imagen">
+          <input type="submit" class="bottom"  value="Enviar">
+        </form>
+        <table>
+          <thead>
+            <tr>
+              <th class="tr">Titulo</th>
+              <th class="tr">Precio</th>
+              <th class="tr">Imagen</th>
+            </tr>
+          </thead>
+          <tbody id="productsList">
+          </tbody>
+        </table>
+    </div>
+
     <h1>Chat</h1>
     <form onsubmit="return addMessage()">
       <input type="text" id="nb" placeholder="Nombre">
